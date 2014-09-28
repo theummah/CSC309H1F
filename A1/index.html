@@ -7,17 +7,22 @@
 	</head>
 	<body>
 		<div id="header" class="panel_config panel_border header_footer_config">
+			<!-- header_footer_config exists due to the fact that
+			they both need rounded borders as well as a seperate
+			font-size and font-color-->
 			<span class="vert_ctr">HEADER</span>
 		</div>
-		<div id="body_ctr" class="panel_config">
+		<div id="body_ctr" class="panel_config"><!-- Contains all panels
+			in between the header and footer: navigation panel,
+			body(main content) and side panel-->
 			<div id="navigation" class="ctr_panel_element panel_border">
-				<span class="vert_ctr content_font_size">Navigation</span>
+				<span class="vert_ctr">Navigation</span>
 			</div>
 			<div id="body" class="ctr_panel_element panel_border">
-				<span class="vert_ctr content_font_size">BODY</span>
+				<span class="vert_ctr">BODY</span>
 			</div>
 			<div id="side_panel" class="ctr_panel_element panel_border">
-				<span class="vert_ctr content_font_size">Side Panel</span>
+				<span class="vert_ctr">Side Panel</span>
 			</div>
 		</div>
 		<div id="footer" class="panel_config panel_border header_footer_config">
