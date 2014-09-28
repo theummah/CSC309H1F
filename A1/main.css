@@ -12,7 +12,7 @@ body {
 	background: rgb(255, 245, 237);
 }
 
-.panel_config{
+.panel_config{ /*Assure panels are centered on page*/
 	text-align:center;
 	left:0px;
 	right:0px;
@@ -24,8 +24,21 @@ body {
 	border: 2px solid #CE7575;
 }
 
-.header_footer_config {
-	border-radius: 5px;
+.vert_ctr { /*Used to vertically center text within panels*/
+	position: absolute;
+	top: 50%;
+ 	-webkit-transform: translate(-50%, -50%);
+ 	-ms-transform: translate(-50%, -50%);;
+ 	transform: translate(-50%, -50%);
+}
+
+.content_font_size {
+	font-size: 150%;
+	white-space: nowrap ;
+}
+
+.header_footer_config { /*rounded corners for header*/
+	border-radius: 25px;
 	color: #E63A3A;
 }
 
@@ -37,10 +50,10 @@ body {
 	margin-bottom: 22px;
 }
 
-#header{
-	height:15%;
-	line-height: 153px;
-	font-size:2em;
+#header, #footer{
+	position: relative;
+	height: 20%;
+	font-size: 200%;
 	width: 85%;
 }
 
@@ -74,15 +87,6 @@ body {
 	height: 100%;
 	line-height: 593px;
 }
-
-#footer{
-	position: relative;
-	height:15%;
-	line-height: 150px;
-	font-size:2em;
-	width: 85%;
-}
-
 
 @media only screen and (max-width: 980px)  {
 	.ctr_panel_element{
