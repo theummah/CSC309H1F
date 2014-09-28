@@ -89,7 +89,7 @@ body {
 @media only screen and (max-width: 980px)  {
 	.ctr_panel_element{
 		height: 30%;
-		margin-bottom:20px;
+		margin-bottom: 5%;
 	}	
 
 	#navigation{
@@ -116,4 +116,7 @@ body {
 		float:none;
 	}
 
+	#footer {
+		margin-top: 5%;
+	}
 }
