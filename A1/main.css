@@ -1,122 +1,109 @@
-*{
-	text-align:center;
-	text-overflow:hidden;
-	font-family: 'Open Sans', sans-serif;
+* {
+    text-align:center;
+    text-overflow:hidden;
+    font-family:'Open Sans', sans-serif;
 }
-
 body {
-	background-color: #2B72BE;
+    background-color: #2B72BE;
 }
-#header, #body, #footer{
-	letter-spacing:1px;
-	background: rgb(255, 245, 237);
+#header, #body, #footer {
+    letter-spacing:1px;
+    background: rgb(255, 245, 237);
 }
-
-.panel_config{ /*Assure panels are centered on page*/
-	text-align:center;
-	left:0;
-	right:0;
-	margin-left:auto;
-	margin-right:auto;
+.panel_config {
+    /*Assure panels are centered on page*/
+    text-align:center;
+    left:0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
 }
-
 .panel_border {
-	border: 2px solid #CE7575;
+    border: 2px solid #CE7575;
 }
-
-.vert_ctr { /*Used to vertically center text within panels*/
-	position: absolute;
-	top: 50%;
-	/*prefixes for various browsers*/
- 	-webkit-transform: translate(-50%, -50%);
- 	-moz-transform: translate(-50%, -50%);
- 	-ms-transform: translate(-50%, -50%);
- 	-o-transform: translate(-50%, -50%);
- 	transform: translate(-50%, -50%);
+.vert_ctr {
+    /*Used to vertically center text within panels*/
+    position: absolute;
+    top: 50%;
+    /*prefixes for various browsers*/
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
-
-.header_footer_config { /*rounded corners for header*/
-	border-radius: 25px;
-	color: #E63A3A;
+.header_footer_config {
+    /*rounded corners for header*/
+    border-radius: 25px;
+    color: #E63A3A;
 }
-
-#body_ctr{
-	height: 65%;
-	position: relative;
-	width: 85%;
-	margin-top: 22px;
-	margin-bottom: 22px;
+#body_ctr {
+    height: 65%;
+    position: relative;
+    width: 85%;
+    margin-top: 22px;
+    margin-bottom: 22px;
 }
-
-#header, #footer{
-	position: relative;
-	height: 20%;
-	font-size: 200%;
-	width: 85%;
+#header, #footer {
+    position: relative;
+    height: 20%;
+    font-size: 200%;
+    width: 85%;
 }
-
-#navigation{
-	width: 16%;
-	background: rgb(255, 245, 237);
-	float: left;
-	position: relative;
-	left: 0;
+#navigation {
+    width: 16%;
+    background: rgb(255, 245, 237);
+    float: left;
+    position: relative;
+    left: 0;
 }
-
-#body{
-	width: 62%;
-	position: relative;
-	display: inline-block;
+#body {
+    width: 62%;
+    position: relative;
+    display: inline-block;
 }
-
-#side_panel{
-	width: 16%;
-	top: 0px;
-	height: 53%;
-	background: rgb(255, 245, 237);
-	display: inline-block;
-	position: relative;
-	float: right;
-	margin-right: 0;
+#side_panel {
+    width: 16%;
+    top: 0px;
+    height: 53%;
+    background: rgb(255, 245, 237);
+    display: inline-block;
+    position: relative;
+    float: right;
+    margin-right: 0;
 }
-
-.ctr_panel_element{
-	height: 100%;
-	font-size: 150%;
-	white-space: nowrap
+.ctr_panel_element {
+    height: 100%;
+    font-size: 150%;
+    white-space: nowrap
 }
-
-@media only screen and (max-width: 980px)  {
-	.ctr_panel_element{
-		height: 30%;
-		margin-bottom: 5%;
-	}	
-
-	#navigation{
-		width: 100%;
-		height:30%;
-		background: rgb(255, 245, 237);
-		float:none;
-		position: relative;
-	}
-
-	#body{
-		width: 100%;
-		height:30%;
-		float:none;
-		position: relative;
-	}
-
-	#side_panel{
-		width: 100%;
-		height:30%;
-		background: rgb(255, 245, 237);
-		position: relative;
-		margin-right: 0;
-		float:none;
-	}
-
-	#footer {
-		margin-top: 5%;
-	}
+@media only screen and (max-width: 980px) {
+    .ctr_panel_element {
+        height: 30%;
+        margin-bottom: 5%;
+    }
+    #navigation {
+        width: 100%;
+        height:30%;
+        background: rgb(255, 245, 237);
+        float:none;
+        position: relative;
+    }
+    #body {
+        width: 100%;
+        height:30%;
+        float:none;
+        position: relative;
+    }
+    #side_panel {
+        width: 100%;
+        height:30%;
+        background: rgb(255, 245, 237);
+        position: relative;
+        margin-right: 0;
+        float:none;
+    }
+    #footer {
+        margin-top: 5%;
+    }
 }
