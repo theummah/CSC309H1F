@@ -58,6 +58,7 @@ window.onload = function(){
 
 window.onmousemove = function(c){
     game_config.paddle_x = c.pageX;
+    gam_config.current_x = c.pageX;
 }
 
 window.addEventListener('resize', resizeCanvas, false);
@@ -163,16 +164,19 @@ function moveBall(){
     if (game_config.current_x + game_config.dx > game_config.canvas_width || game_config.current_x + game_config.dx < 0){
         game_config.dx = -game_config.dx;
     } 
+
     if (game_config.current_y + game_config.dy < 0){
         game_config.dy = -game_config.dy;
     } 
     else if (game_config.current_y + game_config.dy > game_config.canvas_height - game_config.paddle_height - 10) {
         if (game_config.current_x > game_config.paddle_x && game_config.current_x < game_config.paddle_x + game_config.paddle_width)
           game_config.dy = -game_config.dy;
-        else
+        else {//restart
           clearInterval(window.gameLoop);
+          init();
+        }
     }
-    
+
     game_config.current_x += game_config.dx;
     game_config.current_y += game_config.dy;    
     
@@ -192,3 +196,16 @@ function brickLoop(){
 
     
 }   
+
+/*
+random color generator in JavaScript
+http://stackoverflow.com/questions/1484506/random-color-generator-in-javascript
+*/
+function getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
