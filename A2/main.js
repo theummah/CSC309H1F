@@ -18,16 +18,31 @@ var game_config = {
     'paddle_width': 150,
     'paddle_height': 15,
     'bricks': undefined,
-    'b_rows': 5,
+    'b_rows': 2,
     'b_cols': 5,
     'brick_width': 40,
     'brick_height': 20,
     'brick_padding': 1,
+    'bricks_left': this.b_cols * this.b_rows,
     'canvas_width': 0, 
     'canvas_height': 0,
     'game_speed': 10,
     'speed_increase': 3/4
 };
+
+game_config.watch("bricks_left", function(id, oldVal, newVal) {
+    //if no bricks are left on the canvas, start the next level
+    if(newVal === 0) {
+        clearInterval(window.gameLoop);
+        console.log("Next level!");//debugging
+        game_config.b_cols = Math.floor(game_config.b_cols * 1.5); //increase the number of bricks
+        console.log("# of bricks per row: " + game_config.b_cols);//debugging
+        game_config.bricks_left = game_config.b_cols * game_config.b_rows;
+        game_config.game_speed = game_config.game_speed * game_config.speed_increase;
+        console.log("New speed: " + game_config.game_speed);//debugging
+        init();
+    }
+});
 
 function init_bricks() {
 
@@ -128,14 +143,13 @@ function create_brick(x,y,w,h) {
 }
 
 function draw_bricks(){
-    var brick_drawn = false; //assume we aren't going to draw any bricks
 
     //draw bricks
     for (i=0; i < game_config.b_rows; i++) {
         for (j=0; j < game_config.b_cols; j++) {
           if (bricks[i][j] == 1) {
 
-            brick_drawn = true;
+            game_config.bricks_left--;
 
             create_brick((j * (game_config.brick_width + game_config.brick_padding)) + game_config.brick_padding, 
                  (i * (game_config.brick_height + game_config.brick_padding)) + game_config.brick_padding,
@@ -143,8 +157,6 @@ function draw_bricks(){
           }
         }
       }
-
-    return brick_drawn;
 }
 
 function clear_canvas() {
@@ -155,13 +167,17 @@ function clear_canvas() {
 
 function moveBall(){
     clear_canvas();
-    //draw_bricks();
-    var bricks_left = draw_bricks(); //are all the bricks broken?
+    draw_bricks();
 
     //if no bricks are left on the canvas, start the next level
-    if(!bricks_left) {
+    if(game_config.bricks_left === 0) {
+        clearInterval(window.gameLoop);
+        console.log("Next level!");//debugging
         game_config.b_cols = Math.floor(game_config.b_cols * 1.5); //increase the number of bricks
+        console.log("# of bricks per row: " + game_config.b_cols);//debugging
+        game_config.bricks_left = game_config.b_cols * game_config.b_rows;
         game_config.game_speed = game_config.game_speed * game_config.speed_increase;
+        console.log("New speed: " + game_config.game_speed);//debugging
         init();
     }
 
