@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+        <meta charset="utf-8">
+        <title>Animated Square</title>
+        <style>
+            canvas {
+            border: 1px dashed black;
+            }
+        </style>
+        <script>
+            var dx = 1;
+            var x = 0;
+            var y;
+            var sideLength = 75;
+            
+            function moveSquare() {
+            var canvas = document.getElementById("drawingCanvas");
+            var context = canvas.getContext("2d");
+            
+            //off of page
+            if (x > canvas.width) {
+            clearInterval(window.squareAnimation);
+            }
+            else {
+            context.beginPath();
+            context.rect(x, y, sideLength,sideLength);
+            context.strokeStyle = "#FFF";
+            context.lineWidth = 2;
+            context.stroke();
+            x += dx;
+            context.strokeStyle = "#F00";
+            context.strokeRect(x, y, sideLength, sideLength);
+            context.endPath();
+            }
+            }
+            
+            
+            
+            
+            
+            window.onload = function(){
+            var canvas = document.getElementById("drawingCanvas");
+            var context = canvas.getContext("2d");
+            
+            y = (canvas.height / 2) - (sideLength / 2);
+            context.beginPath();
+                   context.rect(x, y, sideLength, sideLength);
+                   context.lineWidth = 2;
+                   context.strokeStyle = '#F00';
+                   context.stroke();
+            
+            canvas.addEventListener("click", function(e) {
+            
+            var clickX = e.pageX - canvas.offsetLeft;
+            var clickY = e.pageY - canvas.offsetTop;
+            
+            if((clickX >= x && clickX <= (x + sideLength)) && 
+            (clickY >= y && clickY <= (y + sideLength))) {
+            
+            window.squareAnimation = setInterval(function() 
+            {
+            moveSquare();
+            }
+            , 10, false);
+            
+            }
+            });
+            }
+            
+            
+        </script>
+    </head>
+
+    <body>
+        <canvas id="drawingCanvas" width="300" height="300"></canvas>
+    </body>
+
+</html>
