@@ -9,14 +9,14 @@
 var game_config = {
     'dx': 3, // Pixel increments per second
     'dy': 4,
-    'ball_radius': 15,
-    'ball_color': 'blue',
+    'ball_radius': 10,
+    'ball_color': getRandomColor(),
     'current_x': 0,
     'current_y': 0, 
     'paddle_x': 0,
     'paddle_y': 0,
-    'paddle_width': 300,
-    'paddle_height': 25,
+    'paddle_width': 150,
+    'paddle_height': 15,
     'bricks': undefined,
     'b_rows': 5,
     'b_cols': 5,
@@ -24,7 +24,9 @@ var game_config = {
     'brick_height': 20,
     'brick_padding': 1,
     'canvas_width': 0, 
-    'canvas_height': 0
+    'canvas_height': 0,
+    'game_speed': 10,
+    'speed_increase': 3/4
 };
 
 function init_bricks() {
@@ -57,8 +59,7 @@ window.onload = function(){
 }
 
 window.onmousemove = function(c){
-    game_config.paddle_x = c.pageX;
-    gam_config.current_x = c.pageX;
+    game_config.paddle_x = c.pageX - (game_config.paddle_width / 2);
 }
 
 window.addEventListener('resize', resizeCanvas, false);
@@ -68,16 +69,16 @@ function init(){
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    game_config.current_x = canvas.width / 2;
-    game_config.current_y = canvas.height / 2;
-    
     game_config.canvas_width = canvas.width;
     game_config.canvas_height = canvas.height;
+
+    game_config.current_x = (game_config.canvas_width / 2) - (game_config.ball_radius / 2);
+    game_config.current_y = game_config.canvas_height - game_config.paddle_height - 20;
     
-    game_config.paddle_x = canvas.width/2;
+    game_config.paddle_x = (game_config.canvas_width / 2) - (game_config.paddle_width / 2);
     game_config.paddle_y = canvas.height - game_config.paddle_height - 10;
 
-    game_config.brick_width = (canvas.width/game_config.b_cols) - 1;
+    game_config.brick_width = (canvas.width/game_config.b_cols) - game_config.brick_padding;
     
     init_bricks();
     
@@ -127,16 +128,23 @@ function create_brick(x,y,w,h) {
 }
 
 function draw_bricks(){
-      //draw bricks
-      for (i=0; i < game_config.b_rows; i++) {
+    var brick_drawn = false; //assume we aren't going to draw any bricks
+
+    //draw bricks
+    for (i=0; i < game_config.b_rows; i++) {
         for (j=0; j < game_config.b_cols; j++) {
           if (bricks[i][j] == 1) {
+
+            brick_drawn = true;
+
             create_brick((j * (game_config.brick_width + game_config.brick_padding)) + game_config.brick_padding, 
                  (i * (game_config.brick_height + game_config.brick_padding)) + game_config.brick_padding,
                  game_config.brick_width, game_config.brick_height);
           }
         }
       }
+
+    return brick_drawn;
 }
 
 function clear_canvas() {
@@ -147,7 +155,15 @@ function clear_canvas() {
 
 function moveBall(){
     clear_canvas();
-    draw_bricks();
+    //draw_bricks();
+    var bricks_left = draw_bricks(); //are all the bricks broken?
+
+    //if no bricks are left on the canvas, start the next level
+    if(!bricks_left) {
+        game_config.b_cols = Math.floor(game_config.b_cols * 1.5); //increase the number of bricks
+        game_config.game_speed = game_config.game_speed * game_config.speed_increase;
+        init();
+    }
 
     rowheight = game_config.brick_height + game_config.brick_padding;
     colwidth = game_config.brick_width + game_config.brick_padding;
@@ -173,12 +189,14 @@ function moveBall(){
           game_config.dy = -game_config.dy;
         else {//restart
           clearInterval(window.gameLoop);
+          game_config.game_speed = 10;
+          game_config.b_cols = 5;
           init();
         }
     }
 
     game_config.current_x += game_config.dx;
-    game_config.current_y += game_config.dy;    
+    game_config.current_y += game_config.dy;
     
     draw_ball();
     draw_paddle();
@@ -192,7 +210,7 @@ function brickLoop(){
     var canvas = document.getElementById('brickbreaker');
     var ctx = canvas.getContext('2d');
     
-    window.gameLoop = setInterval(moveBall, 10);
+    window.gameLoop = setInterval(moveBall, game_config.game_speed);
 
     
 }   
