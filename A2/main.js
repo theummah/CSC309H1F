@@ -30,7 +30,7 @@ var game_config = {
     'canvas_width': 0, 
     'canvas_height': 0,
     'game_speed': 10,
-    'speed_increase': 4/5,
+    'speed_increase': 3/4,
     'orange_hit': false,
     'red_hit': false,
     'points': 0,
@@ -41,6 +41,7 @@ var game_config = {
 
 function init_bricks() {
 
+    game_config.bricks_left = game_config.b_cols * game_config.b_rows;
   game_config.brick_width = game_config.canvas_width/game_config.b_cols;
 
   bricks = new Array(game_config.b_rows);
@@ -93,8 +94,6 @@ function init(){
     game_config.paddle_y = canvas.height - game_config.paddle_height - game_config.paddle_margin_bottom;
 
     game_config.brick_width = (canvas.width/game_config.b_cols) - game_config.brick_padding;
-
-    game_config.bricks_left = game_config.b_rows * game_config.b_cols;
 
     if(game_config.turns_left === 3 || game_config.turns_left === 0) {
 
@@ -259,8 +258,7 @@ function moveBall(){
             {
                 clearInterval(window.gameLoop);
                 console.log("Next screen!");
-                game_config.screens++;
-                game_config.bricks_left = game_config.b_cols * game_config.b_rows;
+                game_config.screen_num++;
                 init_bricks();
                 init();
             }
@@ -292,12 +290,15 @@ function moveBall(){
     } 
 
     if (game_config.current_y + game_config.dy < 0){
+        //reduce paddle width by half it's size if it hits the top of the screen
+        game_config.paddle_width = game_config.paddle_width / 2;
         game_config.dy = -game_config.dy;
     } 
     else if (game_config.current_y + game_config.dy > game_config.canvas_height - game_config.paddle_height - game_config.paddle_margin_bottom) {
+        //between paddle
         if (game_config.current_x > game_config.paddle_x && game_config.current_x < game_config.paddle_x + game_config.paddle_width)
           game_config.dy = -game_config.dy;
-        else {//restart
+        else {//restart, paddle was not in position to deflect ball
             game_config.turns_left--;
 
             if(game_config.turns_left === 0)
