@@ -18,6 +18,7 @@ var game_config = {
     'paddle_y': 0,
     'paddle_width': 100,
     'paddle_height': 10,
+    'paddle_margin_bottom': 30,
     'bricks': undefined,
     'b_rows': 8,
     'b_cols': 10,
@@ -29,10 +30,13 @@ var game_config = {
     'canvas_width': 0, 
     'canvas_height': 0,
     'game_speed': 10,
-    'speed_increase': 9/10,
+    'speed_increase': 4/5,
+    'orange_hit': false,
+    'red_hit': false,
     'points': 0,
-    'level': 1,
-    'turns_left': 3
+    'screen_num': 1,//has a total of 2 screens
+    'turns_left': 3,
+    'intialized': false
 };
 
 function init_bricks() {
@@ -54,8 +58,8 @@ var run_game = true;
 function resizeCanvas(){
     var canvas = document.getElementById('brickbreaker');
     
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = document.body.clientWidth;
+    canvas.height = document.body.clientHeight;
     
     brickLoop();   
 }
@@ -72,42 +76,56 @@ window.addEventListener('resize', resizeCanvas, false);
 
 function init(){
     var canvas = document.getElementById('brickbreaker');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = document.body.clientWidth;
+    canvas.height = document.body.clientHeight;
     
     paint_bg();
 
-    write_points();
+    write_text();
 
     game_config.canvas_width = canvas.width;
     game_config.canvas_height = canvas.height;
 
     game_config.current_x = (game_config.canvas_width / 2) - (game_config.ball_radius / 2);
-    game_config.current_y = game_config.canvas_height - game_config.paddle_height - 20;
+    game_config.current_y = game_config.canvas_height - game_config.paddle_height - game_config.paddle_margin_bottom - 10;
     
     game_config.paddle_x = (game_config.canvas_width / 2) - (game_config.paddle_width / 2);
-    game_config.paddle_y = canvas.height - game_config.paddle_height - 10;
+    game_config.paddle_y = canvas.height - game_config.paddle_height - game_config.paddle_margin_bottom;
 
     game_config.brick_width = (canvas.width/game_config.b_cols) - game_config.brick_padding;
 
     game_config.bricks_left = game_config.b_rows * game_config.b_cols;
 
-    init_bricks();
+    if(game_config.turns_left === 3 || game_config.turns_left === 0) {
+
+        if(game_config.turns_left === 0) {
+            game_config.points = 0;
+            game_config.paddle_width = 100;
+            game_config.screen_num = 1;
+            game_config.game_speed = 10;
+            game_config;
+        }
+        if(game_config.turns_left === 3)
+            draw_ball();
+
+        init_bricks();
+    }
     
     draw_bricks();
-    draw_ball();
     draw_paddle();
     
     canvas.addEventListener('click', brickLoop, false);
 }
 
-function write_points() {
+function write_text() {
     var canvas = document.getElementById('brickbreaker');
     var ctx = canvas.getContext('2d');
 
-    ctx.font = '20px Courier';
+    ctx.font = '15px Courier';
     ctx.fillStyle = "#FFF";
     ctx.fillText('points: ' + game_config.points, 5, canvas.height - 10);
+    ctx.fillText('turns left: ' + game_config.turns_left, canvas.width - 125, canvas.height - 10);
+    ctx.fillText('screen #: ' + game_config.screen_num + ',', canvas.width - 245, canvas.height - 10);
 }
 
 // Draws the ball at position x, y
@@ -203,7 +221,7 @@ function clear_canvas() {
 function moveBall(){
     clear_canvas();
     paint_bg();
-    write_points();
+    write_text();
     draw_bricks();
 
     rowheight = game_config.brick_height + game_config.brick_padding;
@@ -236,14 +254,34 @@ function moveBall(){
 
         //if no bricks are left on the canvas, start the next level
         if(game_config.bricks_left === 0) {
-            clearInterval(window.gameLoop);
-            console.log("Next level!");//debugging
-            game_config.b_cols = Math.floor(game_config.b_cols * 1.5); //increase the number of bricks
-            console.log("# of bricks per row: " + game_config.b_cols);//debugging
-            game_config.bricks_left = game_config.b_cols * game_config.b_rows;
-            game_config.game_speed = game_config.game_speed * game_config.speed_increase;
-            console.log("New speed: " + game_config.game_speed);//debugging
-            init();
+
+            if(game_config.screens === 1)
+            {
+                clearInterval(window.gameLoop);
+                console.log("Next screen!");
+                game_config.screens++;
+                game_config.bricks_left = game_config.b_cols * game_config.b_rows;
+                init_bricks();
+                init();
+            }
+        }
+
+        //speed increase after 4 hits
+        if(game_config.bricks_left === ((game_config.b_cols * game_config.b_rows) - 4)) {
+            game_config.game_speed *= game_config.speed_increase;
+        }//speed increase after 12 hits
+        else if(game_config.bricks_left === ((game_config.b_cols * game_config.b_rows) - 12)) {
+            game_config.game_speed *= game_config.speed_increase;
+        }
+
+        //speed increase after hitting red or orange
+        if(!game_config.red_hit && (row >=0 && row < 2)) {
+            game_config.red_hit = true;
+            game_config.game_speed *= game_config.speed_increase;
+        }
+        else if(!game_config.orange_hit && (row >=2 && row < 4)) {
+            game_config.orange_hit = true;
+            game_config.game_speed *= game_config.speed_increase;
         }
 
         game_config.dy = -game_config.dy;
@@ -256,12 +294,18 @@ function moveBall(){
     if (game_config.current_y + game_config.dy < 0){
         game_config.dy = -game_config.dy;
     } 
-    else if (game_config.current_y + game_config.dy > game_config.canvas_height - game_config.paddle_height - 10) {
+    else if (game_config.current_y + game_config.dy > game_config.canvas_height - game_config.paddle_height - game_config.paddle_margin_bottom) {
         if (game_config.current_x > game_config.paddle_x && game_config.current_x < game_config.paddle_x + game_config.paddle_width)
           game_config.dy = -game_config.dy;
         else {//restart
-          clearInterval(window.gameLoop);
-          init();
+            game_config.turns_left--;
+
+            if(game_config.turns_left === 0)
+                game_config.turns_left = 3;
+
+            game_config.intialized = false;
+            clearInterval(window.gameLoop);
+            init();
         }
     }
 
@@ -280,7 +324,8 @@ function brickLoop(){
     var canvas = document.getElementById('brickbreaker');
     var ctx = canvas.getContext('2d');
     
-    window.gameLoop = setInterval(moveBall, game_config.game_speed);
-
-    
+    if(!game_config.intialized) {
+        game_config.intialized = true;
+        window.gameLoop = setInterval(moveBall, game_config.game_speed);
+    }
 }
