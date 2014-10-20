@@ -102,7 +102,7 @@ function init(){
             game_config.paddle_width = 100;
             game_config.screen_num = 1;
             game_config.game_speed = 10;
-            game_config;
+            game_config.turns_left = 3;
         }
         if(game_config.turns_left === 3)
             draw_ball();
@@ -300,9 +300,6 @@ function moveBall(){
           game_config.dy = -game_config.dy;
         else {//restart, paddle was not in position to deflect ball
             game_config.turns_left--;
-
-            if(game_config.turns_left === 0)
-                game_config.turns_left = 3;
 
             game_config.intialized = false;
             clearInterval(window.gameLoop);
