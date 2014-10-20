@@ -1,4 +1,4 @@
-ID OF AMI: ami-081a9f60
+ID OF AMI: ami-cc982fa4
 LOCATION OF SOURCE FILES: /var/www/html
 BROWSER: firefox
 HOW TO: Game is made according to the wikipedia page for breakout under "Gameplay". url for the page is below:
