@@ -296,7 +296,7 @@ function moveBall(){
         game_config.paddle_width = game_config.paddle_width / 2;
         game_config.dy = -game_config.dy;
     } 
-    else if ( (game_config.current_y + game_config.dy > game_config.canvas_height - game_config.paddle_height - game_config.paddle_margin_bottom) && first_run) {
+    else if ( (game_config.current_y + game_config.dy > game_config.canvas_height - game_config.paddle_height - game_config.paddle_margin_bottom) && !first_run) {
         //between paddle
         if (game_config.current_x > game_config.paddle_x && game_config.current_x < game_config.paddle_x + game_config.paddle_width)
           game_config.dy = -game_config.dy;
