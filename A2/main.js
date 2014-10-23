@@ -8,8 +8,10 @@
 
 var first_run = true;
 var game_config = {
-    'dx': 3, // Pixel increments per second
-    'dy': -4,
+    'dx': 0, // Pixel increments per second
+    'dx_min': 4,
+    'dx_limit': 5,
+    'dy': 4,
     'ball_radius': 5,
     'ball_color': '#FFF',
     'bg_color': '#000',
@@ -104,7 +106,8 @@ function init(){
             game_config.screen_num = 1;
             game_config.game_speed = 10;
             game_config.turns_left = 3;
-	    first_run = true;
+            game_config.dx = 1;
+            first_run = true;
         }
         if(game_config.turns_left === 3)
             draw_ball();
@@ -298,8 +301,29 @@ function moveBall(){
     } 
     else if ( (game_config.current_y + game_config.dy > game_config.canvas_height - game_config.paddle_height - game_config.paddle_margin_bottom) && first_run) {
         //between paddle
-        if (game_config.current_x > game_config.paddle_x && game_config.current_x < game_config.paddle_x + game_config.paddle_width)
-          game_config.dy = -game_config.dy;
+        if (game_config.current_x > game_config.paddle_x && game_config.current_x < game_config.paddle_x + game_config.paddle_width) {
+            game_config.dy = -game_config.dy;
+
+            //mid and end points of paddle
+            var mid = game_config.paddle_x + (game_config.paddle_width / 2);
+            var end = game_config.paddle_x + game_config.paddle_width;
+            var paddle_interval = (game_config.dx_limit - game_config.dx_min) / (game_config.paddle_width / 2);
+            //if ball is at paddle midpoint
+            if((game_config.current_x) === (game_config.paddle_x + (game_config.paddle_width / 2))) {
+                game_config.dx = game_config.dx_min;
+            }//ball hits right side of paddle
+            else if((game_config.current_x) > mid) {
+                var position = (game_config.current_x) - mid;
+                game_config.dx = game_config.dx_min + (paddle_interval * position);
+            }//ball hits left side of paddle
+            else if((game_config.current_x) < mid) {
+                var position = (game_config.current_x) - mid;
+                game_config.dx = -game_config.dx_min + (paddle_interval * position);
+            }
+
+            //TODO: when dx is low, increase y accordingly
+            console.log(game_config.dx);//debugging
+        }
         else {//restart, paddle was not in position to deflect ball
             game_config.turns_left--;
 
