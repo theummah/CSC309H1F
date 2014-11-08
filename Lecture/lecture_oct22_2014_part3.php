@@ -11,14 +11,14 @@
 		?>
 	</head>
 	<body>
-		<form action="factorial.php">
+		<form action="">
 			Factorial for <input type="text" name="factNum" />
 			<input type="submit" />
 		</form>
 		<?php
-		$num = $_GET["factNum"];
-		if(is_numeric($num) && $num > 0)
-			echo fact($num);
+			$num = $_GET["factNum"];
+			if(is_numeric($num) && $num > 0)
+				echo fact($num);
 		?>
 	</body>
 </html>
