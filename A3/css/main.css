@@ -1,3 +1,11 @@
 #container{
 	background:blue;
 }
+
+.right {
+	float: right;
+}
+
+.left {
+	float: left;
+}

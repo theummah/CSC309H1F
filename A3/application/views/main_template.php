@@ -1,5 +1,6 @@
 <html>
 	<head>
+		<title>Tha Spot</title>
 	</head>
 	<body>
 		<?php
