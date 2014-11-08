@@ -31,6 +31,9 @@ class Store extends CI_Controller {
     // }
 
     function index(){
+    	$this->load->helper('html');
+    	$this->load->helper('url');
+
     	$this->load->view('main_template.php');
     }
     
