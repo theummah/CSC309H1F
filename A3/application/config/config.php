@@ -364,6 +364,5 @@ $config['proxy_ips'] = '';
 /* CSS files being used */
 $config['css']['main_template'] = "main.css";
 $config['css']['header'] = "header.css";
-
 /* JS files being used */
 $config['js']['jquery'] = 'shit.js';

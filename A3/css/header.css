@@ -6,6 +6,10 @@
 	border-bottom: 1px solid #000;
 }
 
+#header a {
+	text-decoration: none;
+}
+
 #signin {
 	margin-top: 20px;
 	margin-right: 30px;
