@@ -9,7 +9,7 @@
 #signin {
 	margin-top: 20px;
 	margin-right: 30px;
-	margin-left: 50px;
+	margin-left: 20px;
 	border-radius: 2px;
 	padding: 7.5px 15px;
 	background-color: #4285F4;
@@ -20,4 +20,10 @@
 }
 
 .header_img {
+	margin-top: 15px;
+}
+
+#site_name {
+	font-size: 2em;
+	font-family: 'Antic', sans-serif;
 }
