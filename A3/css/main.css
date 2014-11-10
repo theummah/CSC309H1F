@@ -1,11 +1,132 @@
-#container{
-	background: #FFF;
+*{
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 100;
 }
 
-.right {
-	float: right;
+body{
+	margin: 0px;
 }
 
-.left {
-	float: left;
+.container{
+	/* background: rgb(187, 187, 200); */
+	height: 87%;
+	position: absolute;
+	width: 100%;
+	background: rgba(0,0,0,0.7);
+
+	color:white;
+	padding:30px;
+}
+
+.container_cover{
+	width:100%;
+	height:87%;
+	position:absolute;
+	background-size: 100% auto !important;
+}
+
+.errors{
+
+}
+
+/* Landing page CSS down below */
+
+#landing_menu_container{
+    top: 10%;
+    /* vertical-align: middle; */
+    text-align: center;
+
+    display: block;
+    position: relative;
+}
+
+.landing_menu_item{
+	width:100px;
+	height:100px;
+	background: rgba(255, 255, 255, 1);
+	display:inline-block;
+	padding: 55px;
+	margin-right: 28px;
+	/* letter-spacing: 5px; */
+	text-decoration: none;
+}
+
+.landing_menu_item, .landing_menu_item *{
+	transition:all 0.5s ease-in-out;
+	-moz-transition:all 0.5s ease-in-out;
+	-webkit-transition:all 0.5s ease-in-out;
+}
+
+.landing_menu_item_label{
+	margin-top: 18px;
+	color: white;
+	font-weight: bold;
+	font-size: 0.80em;
+	font-family: "Lato";
+	font-weight: 500;
+	letter-spacing: 2px;
+}
+
+.landing_menu_item:hover{
+	background: rgba(0,0,0,0.5);
+	cursor:pointer;
+}
+
+.landing_menu_item:hover svg{
+	 -webkit-filter: invert(100%);
+}
+
+.landing_menu_item:hover .landing_menu_item_label{
+	color:white;
+}
+
+.landing_sub_banner{
+	margin-top: 108px;
+	font-size: 19px;
+	font-weight: 100;
+	font-family: "Open Sans";
+	letter-spacing: 1px;
+}
+
+/* REGISTRATION/LOGIN FORM CSS */
+.store_form{
+	width: 30%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 60px;
+	background: rgba(255,255,255,0.2);
+	padding: 25px 35px 21px 35px;
+}
+
+.store_form input{
+	display:block;
+	margin-bottom: 10px;
+	width: 100%;
+	border: none;
+	font-size: 17px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding-left: 10px;
+	padding-right: 10px;
+	/* font-family: -webkit-pictograph; */
+}
+
+.form_btn{
+    margin-left: auto;
+    margin-right: auto;
+    top: 15px;
+    position: relative;
+    background: rgb(31, 110, 56);
+    font-weight: bold;
+    font-weight: bold;
+    color: white;
+    width: 130px !important;
+    cursor: pointer;
+    transition:all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+}
+
+.form_btn:hover{
+	box-shadow: 0px 0px 20px rgb(47, 194, 104);
 }
