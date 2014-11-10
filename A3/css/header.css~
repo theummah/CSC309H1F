@@ -1,0 +1,37 @@
+#header_container{
+	width: 100%;
+	/* background:black; */
+	height: 13%;
+	display: table;
+	/* padding-left: 50px; */
+	text-align: left;
+}
+
+#header a {
+	text-decoration: none;
+}
+
+#signin {
+	margin-top: 20px;
+	margin-right: 30px;
+	margin-left: 20px;
+	border-radius: 2px;
+	padding: 7.5px 15px;
+	background-color: #4285F4;
+	color: #FFF;
+	font-weight: 800;
+	text-align: center;
+=======
+#header_text{
+	display: table-cell;
+>>>>>>> 126d670468648954bed98200435594d9f61c8bc0
+	vertical-align: middle;
+	color: black;
+	font-size: 1.5em;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: bold;
+	/* width: 200px; */
+	left: 50px;
+	position: relative;
+	/* width: 100px; */
+}

@@ -1,9 +1,10 @@
-#header{
-	top: 0;
-	margin: 0;
-	height: 4em;
-	color: #000;
-	border-bottom: 1px solid #000;
+#header_container{
+	width: 100%;
+	/* background:black; */
+	height: 13%;
+	display: table;
+	/* padding-left: 50px; */
+	text-align: left;
 }
 
 #header a {
@@ -20,14 +21,4 @@
 	color: #FFF;
 	font-weight: 800;
 	text-align: center;
-	vertical-align: middle;
-}
-
-.header_img {
-	margin-top: 15px;
-}
-
-#site_name {
-	font-size: 2em;
-	font-family: 'Antic', sans-serif;
 }
