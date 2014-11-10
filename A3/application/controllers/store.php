@@ -38,8 +38,6 @@ class Store extends CI_Controller {
     function index(){
 	   if($this->session->userdata('logged_in'))
 	   {
-
-
 	     $session_data = $this->session->userdata('logged_in');
 	     $this->data['username'] = $session_data['login'];
 	   }

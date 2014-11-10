@@ -19,3 +19,77 @@
 	position: relative;
 	/* width: 100px; */
 }
+
+*{
+  /* box-sizing: border-box; */
+  /* font-family: 'Open Sans', sans-serif; */
+  /* padding: 0; */
+  /* margin: 0; */
+}
+
+p{
+  margin: 20% auto;
+  font-weight: 300;
+  font-size: 2em;
+  opacity: .4;
+  width: 50%;
+}
+
+.button{
+  width: 50px;
+  border-radius: 10px;
+  height: 50px;
+  /* border: 1px solid black; */
+  position: fixed;
+  top: 10px;
+  right: 26px;
+  color: #111;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-weight: 800;
+  font-size: 2.5em;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: Sans-serif;
+  letter-spacing: 2px;
+  z-index: 99;
+}
+.button:hover{cursor: pointer}
+
+.menu{
+  width: 188px;
+  padding: 50px 23px 50px 50px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: -300px;
+  background: #111;
+  z-index: 100;
+  transition: all .3s cubic-bezier(0,0,.5,1.5);
+  box-sizing: border-box;
+}
+  .button:focus ~ .menu{right: 0}
+  /* Works fine with .button:active and .button:hover too, but it won't be toggleable and it will be a bit buggy.*
+  
+  * Thanks to /u/secusc on /r/web_design for the .button:focus idea, I had originally made it with :active */
+
+    .menu ul li{list-style: none;}
+    .menu ul li a{
+      color: #f2f2f2;
+      text-decoration: none;
+      text-transform: uppercase;
+      text-align: right;
+      display: block;
+      width: 100%;
+      letter-spacing: 2px;
+      padding: 5px 0;
+    
+      /* display: block; */
+}
+    .menu ul li a:hover{font-weight: 800;}
+
+    .menu ul{
+    	
+    }
+
