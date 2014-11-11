@@ -17,6 +17,8 @@
 				STORE
 			</div>			
 	</a>
+
+	<?php if(!isset($username)) : ?>
 	<a href="<?php echo base_url()?>register" class="landing_menu_item">
 		<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 			 width="46.805px" height="100px" viewBox="0 0 46.805 100" enable-background="new 0 0 46.805 100" xml:space="preserve">
@@ -30,6 +32,9 @@
 				REGISTER
 		</div>
 	</a>
+	<?php endif; ?>
+
+	<?php if(!isset($username)) : ?>
 	<a href="<?php echo base_url()?>login" class="landing_menu_item">
 		<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Glyphs_-_Web" x="0px" y="0px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve" height="100px" width="100px">
 		<path id="Log_In_1_" fill-rule="evenodd" clip-rule="evenodd" d="M16.5,25.5l8-5.5l-8-5.5V18h-6v4h6V25.5z M10.5,9v2h17v18h-17v2h19  V9H10.5z"/>
@@ -39,6 +44,7 @@
 			LOGIN
 		</div>	
 	</a>
+	<?php endif; ?>
 
 	<div class="landing_sub_banner">
 		Use the menu above to start navigating <b>quickStore</b>

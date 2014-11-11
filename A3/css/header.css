@@ -1,10 +1,26 @@
 #header_container{
 	width: 100%;
 	/* background:black; */
-	height: 13%;
-	display: table;
+	height: 65px;
+	display: block;
 	/* padding-left: 50px; */
 	text-align: left;
+	/* z-index: 10; */
+	/* overflow: auto; */
+}
+
+#header_text{
+    font-family: 'Montserrat';
+	
+    font-weight: bold;
+    position: relative;
+    /* margin-top: 27px; */
+    margin-left: 40px;
+    font-size: 1.7em;
+    display: block;
+    max-width: 50%;
+    line-height: 59px;
+    height: 65px;
 }
 
 #header a {
@@ -21,4 +37,102 @@
 	color: #FFF;
 	font-weight: 800;
 	text-align: center;
+}
+
+.user_nav{
+    width: auto;
+	
+    height: 65px;
+    float: right;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding-right: 11px;
+    /* height: 100%; */
+    border-left: 2px solid black;
+    padding-left: 18px;
+    /* margin-right: 16px; */
+}
+
+.user_nav:hover{
+	cursor:pointer;
+}
+
+.user_nav_icon{
+    width: 30px;
+    height: 30px;
+    margin-right: 9px;
+    float: left;
+    margin-top: 17px;
+   
+}
+
+.user_nav_icon * {
+	max-height:100%;
+	max-width:100%;
+	/* margin-right: 16px; */
+}
+
+#username{
+	text-align: right;
+	float: left;
+	line-height: 60px;
+	font-weight: bold;
+}
+
+#nav_list{
+	position: absolute;
+	/* top: 5; */
+	z-index: 10;
+	padding: 0px;
+	margin: 0px;
+	top: 0px;
+	right: 0px;
+	width: 90px;
+	margin-top: 66px;
+
+	 height: 0px; 
+	display: block;
+	overflow: hidden;
+}
+
+#nav_list ul{
+	list-style:none;
+	width:90px;
+	padding: 0px;
+	margin: 0px;
+}
+
+#nav_list ul li{
+	padding-right:10px;
+	background: white;
+	text-align: right;
+	padding-left:10px;
+	padding-top:5px;
+	padding-bottom:5px;
+	margin-bottom:1px;
+	font-weight: bold;	
+	text-transform:uppercase;
+	font-size:11px;
+
+	transition:all 0.2s ease-in-out;
+	-moz-transition:all 0.2s ease-in-out;
+	-webkit-transition:all 0.2s ease-in-out;	
+}
+
+#nav_list ul li:hover{
+	cursor:pointer;
+	background:black;
+}
+
+#nav_list ul li:hover a{
+	color:white;
+}
+
+
+#nav_list ul li a{
+	display:block;
+	font-weight:bold;
+	text-decoration: none;
+	color: black;
 }

@@ -90,8 +90,6 @@ class Store extends CI_Controller {
     		}
     		else
     		{
-    		echo "HELO";
-
     			$this->data['errors'] = $retval['message'];
 	    		$this->data['content'] = $this->load->view('user_accounts/user_login.php', '', true);
 	    		$this->load->view('main_template.php', $this->data);    			
@@ -99,8 +97,6 @@ class Store extends CI_Controller {
 
     	}
     	else{
-    		echo "HELLO";
-
     		$this->data['content'] = $this->load->view('user_accounts/user_login.php', '', true);
     		$this->load->view('main_template.php', $this->data);
     	}
