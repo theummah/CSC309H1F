@@ -23,26 +23,52 @@ class Store extends CI_Controller {
 
 	    	$this->load->helper('html');
     		$this->load->helper('url');
+			$this->load->helper('cart'); 
+			$this->load->helper('literate'); 			
 	    	$this->load->library('upload', $config);
 	    	
 	    	$this->load->model("Customer_model","customer");
+
+		   if($this->session->userdata('logged_in'))
+		   {
+
+
+		     $session_data = $this->session->userdata('logged_in');
+		     $this->data['username'] = $session_data['login'];
+		   }	    	
     }
 
-    // function index() {
-    // 		$this->load->model('product_model');
-    // 		$products = $this->product_model->getAll();
-    // 		$data['products']=$products;
-    // 		$this->load->view('product/list.php',$data);
-    // }
+    function listView() {
+    		$this->load->model('product_model');
+    		$products = $this->product_model->getAll();
+    		$data['products']=$products;
+
+    		// is_admin is to enable admin only behaviour on the product list
+    		// view. Consider making this a helper function to be used anywhere?
+    		if ($this->session->userdata['logged_in']['login'] == 'admin'){
+    			$data['is_admin'] = true;
+    		}
+    		else{
+    			$data['is_admin'] = false;
+    		}
+
+	    	$this->data['content'] = $this->load->view('product/list.php', $data, true);
+
+
+	    	$this->load->view('main_template.php', $this->data);    	
+    }
+
+    function checkout() {
+    		$this->load->model('product_model');
+    		$products = $this->product_model->getAll();
+    		$data['products']=$products;
+    		$data['shopping_cart'] = $this->session->userdata('cart');
+	    	$this->data['content'] = $this->load->view('product/checkout.php', $data, true);
+	    	$this->load->view('main_template.php', $this->data);    	
+    }    
 
     function index(){
-	   if($this->session->userdata('logged_in'))
-	   {
 
-
-	     $session_data = $this->session->userdata('logged_in');
-	     $this->data['username'] = $session_data['login'];
-	   }
 
        $this->data['content'] = $this->load->view('landing.php', $this->data, true);
        $this->load->view('main_template.php', $this->data);
@@ -80,12 +106,12 @@ class Store extends CI_Controller {
     
     function login(){
     	$form_data = $this->input->post();
-
     	if ($form_data){
     		$retval = $this->customer->loginCustomer($form_data);
 
     		if ($retval['status'] == "GOOD"){
     			$this->session->set_userdata('logged_in', $retval['message']);
+    			$this->session->unset_userdata('cart');
     			redirect('/');
     		}
     		else
@@ -154,11 +180,80 @@ class Store extends CI_Controller {
 		$this->load->view('product/read.php',$data);
 	}
 	
+	// Add to cart places saves items as ids of Product in the Session object
+	function add_to_cart() {
+		$this->load->model('product_model');		
+		
+		$to_add = $this->input->get("add");
+		$quantity = $this->input->get("quantity");
+
+		$temp = new stdClass();
+		$temp->id = $to_add;
+		$temp->quantity = $quantity;
+
+
+		if (!isset($this->session->userdata['cart'])){
+			$this->session->set_userdata('cart',array($temp));
+			$this->output->set_output(json_encode(format_return('GOOD',$this->session->userdata('cart'))));
+		}
+		else{
+
+			if (!in_array($temp, $this->session->userdata('cart')))
+			{
+				$cart_list = $this->session->userdata('cart');
+				$cart_list[] = $temp;
+				$this->session->set_userdata('cart', $cart_list);
+				$this->output->set_output(json_encode(format_return('GOOD',$this->session->userdata('cart'))));
+			}
+			else{
+				$this->output->set_output(json_encode(format_return('DUPLICATE',$this->session->userdata('cart'))));
+			}
+		}
+	}
+
+
+	function remove_from_cart(){
+		$this->load->model('product_model');
+
+		$remove = $this->input->post("remove");
+
+		$cart_items = $this->session->userdata('cart');
+	
+
+		foreach($cart_items as $key => $item){
+		  	if ($item->id == $remove){
+		  		unset($cart_items[$key]);
+
+		  		$this->session->set_userdata('cart', $cart_items);
+		 		$this->output->set_output(json_encode(format_return('GOOD',$this->session->userdata('cart'))));
+		  	}
+		}
+
+		// Didn't find product in the cart, we should never reach this case!!
+		$this->output->set_output(json_encode(format_return('BAD',$this->session->userdata('cart'))));		 		
+	}
+
+	function change_quantity(){
+		$this->load->model('product_model');
+		$pid = $this->input->post('pid');
+		$quantity = $this->input->post('quantity');
+		update_quantity_from_cart($pid, $quantity);
+		$this->output->set_output(json_encode(format_return('GOOD',$this->session->userdata('cart'))));
+	} 
+
+	function logOrder(){
+		$this->load->model('product_model');
+	}
+
 	function editForm($id) {
 		$this->load->model('product_model');
 		$product = $this->product_model->get($id);
 		$data['product']=$product;
-		$this->load->view('product/editForm.php',$data);
+		
+		//$this->load->view('product/editForm.php',$data);
+
+		$this->data['content'] = $this->load->view('product/editForm.php', $data, true);
+		$this->load->view('main_template.php',$this->data);
 	}
 	
 	function update($id) {
@@ -177,7 +272,7 @@ class Store extends CI_Controller {
 			$this->load->model('product_model');
 			$this->product_model->update($product);
 			//Then we redirect to the index page again
-			redirect('store/index', 'refresh');
+			redirect('store/listView', 'refresh');
 		}
 		else {
 			$product = new Product();
@@ -186,7 +281,8 @@ class Store extends CI_Controller {
 			$product->description = set_value('description');
 			$product->price = set_value('price');
 			$data['product']=$product;
-			$this->load->view('product/editForm.php',$data);
+			$this->data['content'] = $this->load->view('product/editForm.php', $data, true);
+			$this->load->view('main_template.php',$this->data);
 		}
 	}
     	

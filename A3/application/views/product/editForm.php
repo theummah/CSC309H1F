@@ -6,7 +6,7 @@
 </style>
 
 <?php 
-	echo "<p>" . anchor('store/index','Back') . "</p>";
+	echo "<p>" . anchor('store/listView','Back') . "</p>";
 	
 	echo form_open("store/update/$product->id");
 	

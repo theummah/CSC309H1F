@@ -25,16 +25,16 @@ quickStore
 	<div id="nav_list">
 		<ul>
 			<li>
-				<a>Home</a>
+				<a href="<?php echo base_url()?>">Home</a>
 			</li>
 			<li>
-				<a>Store</a>
+				<a href="<?php echo base_url()?>store/listView">Store</a>
 			</li>
-			<li>
+<!-- 			<li>
 				<a>View Cart</a>
-			</li>
+			</li> -->
 			<li>
-				<a>Checkout</a>
+				<a href="<?php echo base_url()?>store/checkout">View Cart</a>
 			</li>		
 			<li>
 				<a href="<?php echo base_url()?>logout">Log Out</a>
