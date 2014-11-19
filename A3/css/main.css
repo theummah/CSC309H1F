@@ -50,6 +50,14 @@ a {
 	word-wrap: normal;
 }
 
+.product_table th {
+	text-align: left;
+}
+
+.product_table tr {
+	border-bottom: 1px solid #FFF;
+}
+
 .errors{
 
 }

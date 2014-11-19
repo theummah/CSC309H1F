@@ -1,0 +1,7 @@
+.required, .error {
+	color: red;
+}
+
+.error {
+	display: none;
+}

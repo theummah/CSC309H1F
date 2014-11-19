@@ -1,4 +1,5 @@
 <h2>Checkout</h2>
+<p class="required">* Required</p>
 		<table class='product_table'>
 		<tr><th>Name</th><th>Description</th><th>Price</th><th>Photo</th></tr>
 
@@ -6,12 +7,11 @@
 <?php
 	
 		echo "<div class='credit_card_form'>";
-			echo form_open('store/logOrder');
-				echo form_input('creditcard_number', '', 'placeholder="Credit Card Number"');	
-				echo form_input('creditcard_month', '', 'type="number" min="1" placeholder="Credit Card Month"');
-				echo form_input('creditcard_year', '', 'type="number" min="1999" placeholder="Credit Card Year"');
-
-
+			echo '<form>';
+				echo form_input('creditcard_number', '', 'type="text" placeholder="Credit Card Number"');
+				echo '<span class="error">* Credit card number must be 16 digits</span>';
+				echo form_input('creditcard_expiry', '', 'type="text" placeholder="Credit Card Expiry MM/YY"');
+				echo '<span class="error">* expiry date must be valid and in the form MM/YY</span>';
 
 		foreach ($products as $product) {
 			if (in_cart($product->id)){
@@ -26,8 +26,8 @@
 			}
 			echo "</tr>";
 		}
-		echo "<table>";
 ?>
-
-	<input id="checkout" type="submit" value="Checkout"/>
-	</form>
+		</table>
+		<input id="checkout" type="submit" value="Checkout"/>
+		</form>
+	</div>
