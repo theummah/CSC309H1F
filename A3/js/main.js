@@ -11,7 +11,7 @@ $(document).on('mouseenter', '.user_nav', function(){
 // 		$("#nav_list").animate({height:'0%'},300);
 // });
 
-$(document).on('mouseleave','#nav_list', function(){
+$(document).on('mouseleave','#nav_list ul', function(){
 		$("#nav_list").animate({height:'0%'},300);
 });
 
@@ -19,7 +19,7 @@ $(document).on('mouseleave','#nav_list', function(){
 $(document).on('click', '.add_to_cart', function(){
 	var $this = $(this);
 	var product_id = $(this).parent().attr('product-id');
-	$.get("http://localhost:8888/quickStore/store/add_to_cart", 
+	$.get("//localhost/estore/store/add_to_cart", 
 		{add: product_id, quantity: 1}, 
 		function(data){
 			data = $.parseJSON(data);
@@ -44,7 +44,7 @@ $(document).on('click', '.add_to_cart', function(){
 $(document).on('click', '.remove_from_cart', function(){
 	var $this = $(this);	
 	var product_id = $(this).parent().attr('product-id');
-	$.post("http://localhost:8888/quickStore/store/remove_from_cart",{remove: product_id}, 
+	$.post("//localhost/estore/store/remove_from_cart",{remove: product_id}, 
 		function(data){
 
 			data = $.parseJSON(data);
@@ -71,7 +71,7 @@ $(document).on('change', '.change_quantity', function(){
 	var product_id = $(this).parent().parent().attr('product-id');
 	console.log(product_id);
 	var quan = $(this).val();
-	$.post("http://localhost:8888/quickStore/store/change_quantity",{pid: product_id, quantity: quan}, 
+	$.post("//localhost/estore/store/change_quantity",{pid: product_id, quantity: quan}, 
 		function(data){
 
 			data = $.parseJSON(data);
