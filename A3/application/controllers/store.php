@@ -38,6 +38,13 @@ class Store extends CI_Controller {
 		   }	    	
     }
 
+    function index(){
+
+
+       $this->data['content'] = $this->load->view('landing.php', $this->data, true);
+       $this->load->view('main_template.php', $this->data);
+    }
+    
     function listView() {
     		$this->load->model('product_model');
     		$products = $this->product_model->getAll();
@@ -66,13 +73,6 @@ class Store extends CI_Controller {
 	    	$this->data['content'] = $this->load->view('product/checkout.php', $data, true);
 	    	$this->load->view('main_template.php', $this->data);    	
     }    
-
-    function index(){
-
-
-       $this->data['content'] = $this->load->view('landing.php', $this->data, true);
-       $this->load->view('main_template.php', $this->data);
-    }
    
 
     function newForm() {

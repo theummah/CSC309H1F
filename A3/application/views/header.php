@@ -1,9 +1,10 @@
 
 <div id="header_container">
 <span id="header_text">
-quickStore
+<a href="//localhost/estore">quickStore</a>
 </span>
 
+<div id="user_menu">
 <?php if(isset($username)) : ?>
 	<div class="user_nav">
 		<div class="user_nav_icon">
@@ -42,3 +43,5 @@ quickStore
 		</ul>
 	</div>
 <?php endif; ?>
+</div><!--closing user_menu tag -->
+</div><!--closing header_container tag -->

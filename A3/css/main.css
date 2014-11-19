@@ -9,6 +9,10 @@ body{
 	height: 100%;
 }
 
+a {
+	color: #000;
+	text-decoration: none;
+}
 .container{
 	/* background: rgb(187, 187, 200); */
 	height: 94%;
@@ -39,6 +43,11 @@ body{
 
 .product_table a:hover{
 	color:green;
+}
+
+.product_table td, .product_table th {
+	padding-right: 20px;
+	word-wrap: normal;
 }
 
 .errors{
