@@ -7,7 +7,7 @@
 <?php
 	
 		echo "<div class='credit_card_form'>";
-			echo '<form onsubmit="return isValid()" action="//localhost/estore/store/logOrder" method="get">';
+			echo '<form onsubmit="return isValid()" action="//localhost/estore/store/logOrder" method="post">';
 				echo form_input('creditcard_number', '', 'type="text" placeholder="Credit Card Number"');
 				echo '<span class="error">* Credit card number must be 16 digits</span>';
 				echo form_input('creditcard_expiry', '', 'type="text" placeholder="Credit Card Expiry MM/YY"');
@@ -22,7 +22,7 @@
 				echo "<td><img src='" . base_url() . "images/product/" . $product->photo_url . "' width='100px' /></td>";
 				echo "<td>" . anchor("store/read/$product->id",'View') . "</td>";
 				echo "<td class='delete_from_cart'><a>Delete</a></td>";		
-				echo "<td><input min='1' class='change_quantity' value='".get_quantity_from_cart($product->id)."' /></td>";																				
+				echo "<td><input min='1' class='change_quantity' value='". get_quantity_from_cart($product->id) ."' /></td>";																				
 			}
 			echo "</tr>";
 		}

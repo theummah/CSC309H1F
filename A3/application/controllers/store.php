@@ -243,8 +243,10 @@ class Store extends CI_Controller {
 
 	function logOrder(){
 		$this->load->model('product_model');
+		$this->load->model('order_model');
+
 		$products = $this->product_model->getAll();
-    	$data['products']=$products;
+    	$data['products'] = $products;
 		$data['shopping_cart'] = $this->session->userdata('cart');
 	    $this->data['content'] = $this->load->view('product/confirm_order.php', $data, true);
 	    $this->load->view('main_template.php', $this->data);
