@@ -86,12 +86,81 @@ $(document).on('change', '.change_quantity', function(){
 
 });
 
-$(document).on('click', '#checkout', function(){
-	var $this = $(this);
+// $(document).on('click', '#checkout', function(){
+// 	var $this = $(this);
+	
+// 	$this.parent().find('.error').hide();
+
+// 	var valid = true;
+// 	var ccNum = $this.parent().find('input[name=creditcard_number]').val()
+// 	var ccExp = $this.parent().find('input[name=creditcard_expiry]').val()
+
+// 	var ccNumPattern = /\d{16}/;
+// 	var ccExpPattern = /((0[123456789])|(1[012]))\/((1[456789])|([23456789][0-9]))/;
+
+// 	var today = new Date();
+
+// 	//check that the credit card number is 16 digits first
+// 	if(!ccNumPattern.test(ccNum)) {
+// 		$this.parent().find('.error').first().fadeIn();
+// 		console.log("valid is false");
+// 		valid = false;
+// 	}
+// 	//check if the expiry date is valid
+// 	if(ccExpPattern.test(ccExp)) {
+
+// 		if(ccExp[0] === '0')
+// 			var ccMonth = parseInt(ccExp[1]);
+// 		else
+// 			var ccMonth = parseInt(ccExp[0] + ccExp[1]);
+
+// 		if(today.getMonth() > ccExp) {
+// 			$this.parent().find('.error').last().fadeIn();
+// 			alert("valid is false");
+// 			return false;
+// 			//$this.parent().find('.error');
+// 		}
+// 	}
+// 	else {
+// 		alert("valid is false");
+// 		return false;
+// 	}
+
+// 	if(valid) {
+// 		$.get("//localhost/estore/store/logOrder", 
+// 			{add: product_id, quantity: 1}, 
+// 			function(data){
+// 				data = $.parseJSON(data);
+// 				console.log(data);
+
+// 				$this.find('a').html("Remove From Cart");
+// 				$this.removeClass('add_to_cart');
+// 				$this.addClass('remove_from_cart');	
+						
+// 				// if (data.status == "GOOD"){				
+// 				// 	// Added to cart, thus swap out this anchor and its route				
+
+// 				// 	return false;
+// 				// }
+// 				// else{
+// 				// 	return false;
+// 				// }
+// 			}
+// 		);
+// 	}
+// 	else {
+// 		re
+// 	}
+
+// });
+
+function isValid() {
+	var $this = $('#checkout');
 	
 	$this.parent().find('.error').hide();
 
 	var valid = true;
+
 	var ccNum = $this.parent().find('input[name=creditcard_number]').val()
 	var ccExp = $this.parent().find('input[name=creditcard_expiry]').val()
 
@@ -103,7 +172,6 @@ $(document).on('click', '#checkout', function(){
 	//check that the credit card number is 16 digits first
 	if(!ccNumPattern.test(ccNum)) {
 		$this.parent().find('.error').first().fadeIn();
-		console.log("valid is false");
 		valid = false;
 	}
 	//check if the expiry date is valid
@@ -114,42 +182,20 @@ $(document).on('click', '#checkout', function(){
 		else
 			var ccMonth = parseInt(ccExp[0] + ccExp[1]);
 
-		if(today.getMonth() > ccExp) {
-			$this.parent().find('.error').last().fadeIn();
-			alert("valid is false");
-			return false;
-			//$this.parent().find('.error');
-		}
-	}
-	else {
-		alert("valid is false");
-		return false;
-	}
+		var ccYear = parseInt(ccExp[3] + ccExp[4]);
 
-	if(valid) {
-		$.get("//localhost/estore/store/logOrder", 
-			{add: product_id, quantity: 1}, 
-			function(data){
-				data = $.parseJSON(data);
-				console.log(data);
-
-				$this.find('a').html("Remove From Cart");
-				$this.removeClass('add_to_cart');
-				$this.addClass('remove_from_cart');	
-						
-				// if (data.status == "GOOD"){				
-				// 	// Added to cart, thus swap out this anchor and its route				
-
-				// 	return false;
-				// }
-				// else{
-				// 	return false;
-				// }
+		//if in year of expiry
+		if(ccYear === (today.getYear() % 100))
+			//check if month has passed
+			if((today.getMonth() + 1) > ccMonth) {
+				$this.parent().find('.error').last().fadeIn();
+				valid = false;
 			}
-		);
 	}
 	else {
-		$('')
+		$this.parent().find('.error').last().fadeIn();
+		valid = false;
 	}
 
-});
+	return valid;//should be false if all tests are passed
+}

@@ -7,7 +7,7 @@
 <?php
 	
 		echo "<div class='credit_card_form'>";
-			echo '<form>';
+			echo '<form onsubmit="return isValid()" action="//localhost/estore/store/logOrder" method="get">';
 				echo form_input('creditcard_number', '', 'type="text" placeholder="Credit Card Number"');
 				echo '<span class="error">* Credit card number must be 16 digits</span>';
 				echo form_input('creditcard_expiry', '', 'type="text" placeholder="Credit Card Expiry MM/YY"');
@@ -27,7 +27,8 @@
 			echo "</tr>";
 		}
 ?>
+		
+			<input id="checkout" type="submit" value="Checkout"/>
+			</form>
 		</table>
-		<input id="checkout" type="submit" value="Checkout"/>
-		</form>
 	</div>

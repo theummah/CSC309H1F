@@ -300,10 +300,9 @@ class Store extends CI_Controller {
 		//Then we redirect to the index page again
 		redirect('store/index', 'refresh');
 	}
-      
-   
-    
-    
-    
+	
+	function receipt() {
+		$this->load->model('product_model');
+	}      
 }
 
